@@ -81,3 +81,5 @@ HmacRest.prototype.authenticate = function(req, res, next) {
         }
     });
 };
+
+module.exports = HmacRest;
