@@ -15,5 +15,8 @@
     "url": "https://github.com/adityamedhe/hmac-rest/issues"
   },
   "homepage": "https://github.com/adityamedhe/hmac-rest#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "moments": "0.0.2"
+  }
 }
