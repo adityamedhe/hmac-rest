@@ -17,6 +17,7 @@
   "homepage": "https://github.com/adityamedhe/hmac-rest#readme",
   "description": "",
   "dependencies": {
+    "moment": "^2.17.1",
     "moments": "0.0.2"
   }
 }
