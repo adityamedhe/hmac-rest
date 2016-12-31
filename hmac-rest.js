@@ -3,7 +3,7 @@ var crypto = require('crypto'),
 
 module.exports = (function(verify) {
     return function(req, res, next) {
-        if(!req.headers.date || !req.headers.authentication) {
+        if(!req.headers.hmacdate || !req.headers.authentication) {
             res.writeHead(400, {});
             res.write("hmac-rest: no or malformed authentication information");
             res.end();
@@ -26,14 +26,13 @@ module.exports = (function(verify) {
         var usernameV1 = tokens[0];
         var hashV1 = tokens[1];
         
-        verify(usernameV1, function(err, secret) {
+        verify(usernameV1, function(err, response) {
             if(err) {
                 res.end();
             }
-            const hmac = crypto.createHmac('sha256', secret);
-            hmac.update(req.method+req.url+req.headers.date);
+            const hmac = crypto.createHmac('sha256', response.secret);
+            hmac.update(req.method.toLowerCase()+req.url+req.headers.hmacdate);
             var hashV2 = hmac.digest('hex');
-            
             if(hashV1 === hashV2) {
                 if(next)
                     next();
