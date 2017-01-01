@@ -1,11 +1,12 @@
 var crypto = require('crypto'),
     moment = require('moment');
 
-module.exports = (function(verify) {
+module.exports = (function(verify, failureResponse) {
     return function(req, res, next) {
         if(!req.headers.hmacdate || !req.headers.authentication) {
             res.writeHead(400, {});
-            res.write("hmac-rest: no or malformed authentication information");
+            failureResponse.auth_error = "hmac-rest: no or malformed authentication information";
+            res.write(JSON.stringify(failureResponse));
             res.end();
             return;
         }
@@ -17,7 +18,8 @@ module.exports = (function(verify) {
         
         if(str_hmac !== "hmac") {
             res.writeHead(400, {});
-            res.write("hmac-rest: malformed authentication header");
+            failureResponse.auth_error = "hmac-rest: malformed authentication information";
+            res.write(JSON.stringify(failureResponse));
             res.end();
             return;
         }
@@ -38,7 +40,8 @@ module.exports = (function(verify) {
                     next();
             } else {
                 res.writeHead(401, {});
-                res.write("hmac-rest: authentication failed");
+                failureResponse.auth_error = "hmac-rest: authentication failed";
+                res.write(JSON.stringify(failureResponse));
                 res.end();
                 return;
             }
