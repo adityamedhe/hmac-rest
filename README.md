@@ -9,7 +9,7 @@ This package allows you to build REST endpoints using HMAC authentication, using
 ## Required HTTP Headers
 - `hmacdate`: should be a date string in ISO format
 - `authentication`: should be a string of the format:
-hmac <space> <username>:<sha256 HMAC hash>. For example: "hmac adimedhe:9283ur9283ur01983ur018u".
+hmac (space) (username) : (sha256 HMAC hash). For example: "hmac adimedhe:9283ur9283ur01983ur018u".
 
 ### How to compute hash?
 Compute a SHA256 HMAC Hash using any popular crypto library (Google CryptoJS recommended). 
