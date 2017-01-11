@@ -33,7 +33,7 @@ module.exports = (function(verify, failureResponse) {
                 res.end();
             }
             const hmac = crypto.createHmac('sha256', response.secret);
-            hmac.update(req.method.toLowerCase()+req.url+req.headers.hmacdate);
+            hmac.update(req.method.toLowerCase()+req.url.split('?')[0]+req.headers.hmacdate);
             var hashV2 = hmac.digest('hex');
             if(hashV1 === hashV2) {
                 if(next)
